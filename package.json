@@ -1,0 +1,23 @@
+{
+    "name": "user-management-api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "devStart": "nodemon server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "dotenv": "^16.4.6",
+        "express": "^4.21.1",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.8.3",
+        "user-management-api": "file:"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.7"
+    }
+}

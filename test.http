@@ -1,0 +1,114 @@
+GET http://localhost:5000/api/users
+
+###
+POST http://localhost:5000/api/users/register
+content-type: application/json
+
+{
+    "name": "sample",
+    "email": "hr@gmail.com",
+    "password": "password",
+    "role": "HR"
+}
+
+###
+GET http://localhost:5000/api/users/hr
+
+###
+POST http://localhost:5000/api/emp/addemp
+content-type: application/json
+
+{
+    "name": "nij", 
+    "email": "nij@gmail.com", 
+    "phone": "1234567890", 
+    "designation": "Salesforce Developer",
+    "department": "IT",
+    "salary": 50000
+}
+
+###
+GET http://localhost:5000/api/emp/getemp
+
+###
+POST http://localhost:5000/api/job/addjob
+content-type: application/json
+
+{
+    "title": "Backend Engineer",
+    "jobType": "Internship",
+    "jobCategory": "IT",
+    "jobLocation": "Mumbai , maharashtra",
+    "available": true,
+    "requiredSkills": ["sql", "Node.js", "mongodb"],
+    "requiredQualification": "Bachelor's Degree in Computer Science",
+    "responsibilities": ["Develop and maintain web applications", "Collaborate with cross-functional teams", "Write clean and efficient code"],
+    "jobDescription": "We are looking for a Software Engineer to join our team.",
+    "requiredExperience": "2+ years"
+
+}
+
+###
+GET http://localhost:5000/api/job/job
+
+###
+PUT http://localhost:5000/api/job/editjob/6750318e367ec389af525097
+content-type: application/json
+
+{
+    "title": "umar Engineer",
+    "jobType": "Internship",
+    "jobCategory": "IT",
+    "jobLocation": "Mumbai , maharashtra",
+    "available": true,
+    "requiredSkills": ["sql", "Node.js", "mongodb"],
+    "requiredQualification": "Bachelor's Degree in Computer Science",
+    "responsibilities": ["Develop and maintain web applications", "Collaborate with cross-functional teams", "Write clean and efficient code"],
+    "jobDescription": "We are looking for a Software Engineer to join our team.",
+    "requiredExperience": "2+ years"
+
+}
+
+
+###
+DELETE http://localhost:5000/api/job/deletejob/6750318e367ec389af525097
+
+###
+GET http://localhost:5000/api/applicant/test
+
+###
+GET http://localhost:5000/api/applicant/getApplicant/umar
+
+###
+GET http://localhost:5000/api/applicant/67517c664e48ed3ae29ef679
+
+
+###
+GET http://localhost:5000/api/timeSheet/
+
+###
+POST http://localhost:5000/api/timeSheet/
+content-type: application/json
+
+{
+    "email": "farhan@gmail.com",
+    "project": "GST management",
+    "task": "solve the bugs in the login system",
+    "assignedBy": "Manager",
+    "week": "2024-12-02",
+    "hours": {
+        "monday": 5,
+        "tuesday": 5,
+        "wednesday": 5,
+        "thursday": 4,
+        "friday": 7,
+        "saturday": 0,
+        "sunday": 0
+    }
+}
+
+###
+GET http://localhost:5000/api/timeSheet/all
+
+###
+GET http://localhost:5000/api/shift/

@@ -1,0 +1,505 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "User Management API",
+      "version": "1.0.0",
+      "description": "API for managing Employees, HR, and Admins with role-based access."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:5000",
+        "description": "Local server"
+      }
+    ],
+    "tags": [
+      {
+        "name": "User",
+        "description": "Login/ register"
+      },
+      {
+        "name": "Jobs",
+        "description": "Endpoints related to job management"
+      }
+    ],
+    "paths": {
+      "/api/users/register": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Register a new user",
+          "description": "Allows registration of a new user with roles Employee, HR, or Admin.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "Employee",
+                        "HR",
+                        "Admin"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "password",
+                    "role"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User successfully registered.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "id": "64c9f11b1f8a3e1e1e31f923",
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid input."
+            }
+          }
+        }
+      },
+      "/api/users/login": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Log in a user",
+          "description": "Authenticates a user and returns a JWT token.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "email",
+                    "password"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Login successful.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "id": "64c9f11b1f8a3e1e1e31f923",
+                    "role": "Employee",
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid credentials."
+            }
+          }
+        }
+      },
+      "/api/users/users": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Get all users",
+          "description": "Allows an Admin to view all registered users.",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of users.",
+              "content": {
+                "application/json": {
+                  "example": [
+                    {
+                      "id": "64c9f11b1f8a3e1e1e31f923",
+                      "name": "John Doe",
+                      "email": "john@example.com",
+                      "role": "Employee"
+                    }
+                  ]
+                }
+              }
+            },
+            "401": {
+              "description": "Not authorized."
+            },
+            "403": {
+              "description": "Access denied."
+            }
+          }
+        }
+      },
+      "/api/users/employee": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Access employee resources",
+          "description": "Allows Employees, HR, and Admins to access this route.",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Access granted.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Welcome Employee"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Not authorized."
+            }
+          }
+        }
+      },
+      "/api/users/hr": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Access HR resources",
+          "description": "Allows HR and Admins to access this route.",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Access granted.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Welcome HR"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Not authorized."
+            }
+          }
+        }
+      },
+      "/api/job/addJob": {
+        "post": {
+          "tags": [
+            "Jobs"
+          ],
+          "summary": "Add a new job",
+          "description": "Create a new job posting. Only accessible by Admin users.",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "Job title"
+                    },
+                    "jobType": {
+                      "type": "string",
+                      "description": "Type of job (e.g., full-time, part-time)"
+                    },
+                    "jobCategory": {
+                      "type": "string",
+                      "description": "Category of the job"
+                    },
+                    "jobLocation": {
+                      "type": "string",
+                      "description": "Location of the job"
+                    },
+                    "available": {
+                      "type": "boolean",
+                      "description": "Whether the job is available"
+                    },
+                    "requiredSkills": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of required skills for the job"
+                    },
+                    "requiredQualification": {
+                      "type": "string",
+                      "description": "Required qualification for the job"
+                    },
+                    "responsibilities": {
+                      "type": "string",
+                      "description": "Responsibilities of the job"
+                    },
+                    "jobDescription": {
+                      "type": "string",
+                      "description": "Detailed description of the job"
+                    },
+                    "requiredExperience": {
+                      "type": "number",
+                      "description": "Years of experience required"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "jobType",
+                    "jobCategory",
+                    "jobLocation"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Job created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Job"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/job/job": {
+        "get": {
+          "tags": [
+            "Jobs"
+          ],
+          "summary": "Get all jobs",
+          "description": "Retrieve a list of all job postings.",
+          "responses": {
+            "200": {
+              "description": "List of jobs retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Job"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/job/job/{id}": {
+        "get": {
+          "tags": [
+            "Jobs"
+          ],
+          "summary": "Get job details",
+          "description": "Retrieve details of a specific job using its ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "The ID of the job to retrieve.",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Job details retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Job"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Job not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      
+  
+      "/api/job/editjob/{id}": {
+        "put": {
+          "tags": [
+            "Jobs"
+          ],
+          "summary": "Edit a job",
+          "description": "Update an existing job posting. Only accessible by Admin users.",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the job to edit",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Job updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Job"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Job not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/job/deletejob/{id}": {
+        "delete": {
+          "tags": [
+            "Jobs"
+          ],
+          "summary": "Delete a job",
+          "description": "Remove an existing job posting. Only accessible by Admin users.",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the job to delete",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Job deleted successfully"
+            },
+            "404": {
+              "description": "Job not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Job": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "jobType": { "type": "string" },
+            "jobCategory": { "type": "string" },
+            "jobLocation": { "type": "string" },
+            "available": { "type": "boolean" },
+            "requiredSkills": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "requiredQualification": { "type": "string" },
+            "responsibilities": { "type": "string" },
+            "jobDescription": { "type": "string" },
+            "requiredExperience": { "type": "number" }
+          }
+        }
+      },
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }
+  }
