@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 const Employee = require('./Employee');
 
 const shiftSchema = new mongoose.Schema({
-  employee: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Employee', // Reference to the Employee schema
-    required: true
-  },
   date: {
     type: Date,
     required: true
@@ -21,7 +16,8 @@ const shiftSchema = new mongoose.Schema({
   },
   shiftType: {
     type: String, // Example: "Morning Shift", "Night Shift"
-    required: true
+    required: true,
+    lowercase: true
   },
   notes: {
     type: String, // Example: "Holiday", additional info

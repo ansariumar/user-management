@@ -36,8 +36,9 @@ const protect = async (req, res, next) => {
 // };
 const authorize = (...roles) => {             //if employee is trying to access the role of admin, the roles = ['Admin'], req.user.role = 'Employee'
   return (req, res, next) => {
-
-    if (req.user._id.toString() === req.params.id || roles.includes(req.user.role)) {
+    // console.debug(roles)
+    // console.debug(req.user.role)
+    if ( roles.includes(req.user.role)) {
       next();
     } else {
       return res.status(403).json({ message: 'Access denied' });

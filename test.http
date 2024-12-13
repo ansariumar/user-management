@@ -19,12 +19,12 @@ POST http://localhost:5000/api/emp/addemp
 content-type: application/json
 
 {
-    "name": "nij", 
-    "email": "nij@gmail.com", 
+    "name": "yadav", 
+    "email": "yadav@gmail.com", 
     "phone": "1234567890", 
     "designation": "Salesforce Developer",
     "department": "IT",
-    "salary": 50000
+    "salary": 40000
 }
 
 ###
