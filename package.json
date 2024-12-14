@@ -15,6 +15,10 @@
         "express": "^4.21.1",
         "jsonwebtoken": "^9.0.2",
         "mongoose": "^8.8.3",
+        "multer": "^1.4.5-lts.1",
+        "nodemailer": "^6.9.16",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1",
         "user-management-api": "file:"
     },
     "devDependencies": {

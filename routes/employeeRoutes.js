@@ -4,6 +4,7 @@ const User = require('../models/User');
 const Employee = require('../models/Employee');
 const jwt = require('jsonwebtoken');
 const Shift = require('../models/Shift');
+const { sendEmail } = require('../utils/mail');
 
 const router = express.Router();
 
@@ -34,7 +35,11 @@ router.post('/addEmp',  async (req, res) => {
         };
 
         const newEmp = await Employee.create(empData);
-        return res.status(201).json(await newEmp.populate('userID'));
+        const populatedData = await newEmp.populate('userID');
+        if (!newEmp) return res.status(400).json({ error: "Could not create employee" });
+
+        const info = await sendEmail(email, password, name);
+        return res.status(201).json({"mail-status": info, populatedData});
 
     } catch (error) {
         console.log(error);
