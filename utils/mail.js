@@ -62,7 +62,7 @@ async function sendEmail(email, password, empname) {
         to: email,
         subject: `Congratulations ${empname}! You have been added to the Esparse Matrix family, Below are your email and password to login`,
         text: `Email: ${email} Password: ${password}`,
-        html: "<b>Happy to have you😁😁</b>",
+        html: `<b>Happy to have you😁😁</b> <br> ${email} ${password}`,
         // attachments: [{
         //     filename: "1733393308988-MohamadUmar_Ansari.pdf",
         //     path: "./uploads/1733393308988-MohamadUmar_Ansari.pdf",
@@ -70,7 +70,7 @@ async function sendEmail(email, password, empname) {
     }
 
     try {
-        const info = await transporter.sendMail(mailOptions);
+        const info = transporter.sendMail(mailOptions);
         console.log("Message sent: %s", info.messageId);
         return info.messageId;
     } catch (error) {

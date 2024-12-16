@@ -10,6 +10,8 @@ const applicantRoutes = require('./routes/applicantRoutes');
 const leaveRoutes = require('./routes/leaveRoutes');
 const timeSheetRoutes = require('./routes/timeSheetRoutes');
 const shiftRoutes = require('./routes/shiftRoutes');
+const payrollRoutes = require('./routes/payrollRoutes')
+const announcementRoutes = require('./routes/announcementRoutes');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
@@ -58,6 +60,8 @@ app.use('/api/applicant', applicantRoutes );
 app.use('/api/leave', leaveRoutes);
 app.use('/api/timeSheet', timeSheetRoutes );
 app.use('/api/shift', shiftRoutes);
+app.use('/api/announcement', announcementRoutes);
+app.use('./api/payroll', payrollRoutes)
 
 // MongoDB Connection
 mongoose

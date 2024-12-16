@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const User = require('./User');
 const Shift = require('./Shift');
+const Payroll = require('./Payroll')
+
 
 const employeeSchema = new mongoose.Schema({
   name: {
@@ -32,6 +34,10 @@ const employeeSchema = new mongoose.Schema({
   shifts: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Shift'
+  }],
+  payrolls: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Payroll"
   }],
   salary: {
     type: Number,

@@ -112,3 +112,6 @@ GET http://localhost:5000/api/timeSheet/all
 
 ###
 GET http://localhost:5000/api/shift/
+
+###
+GET http://localhost:5000/api/announcement

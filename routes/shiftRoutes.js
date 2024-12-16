@@ -8,12 +8,10 @@ const router = express.Router();
 
 router.get('/my', protect, authorize("Employee"), async (req, res) => {
     try {
-        
-        
-
         if (!req.emp) return res.status(404).json({ error: "Employee not found" });
 
         const employee = req.emp;
+        
         let shift = await employee.populate('shifts', 'date startTime endTime shiftType notes')
         shift = shift.shifts;
         return res.status(200).json(shift);
