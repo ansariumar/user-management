@@ -56,11 +56,11 @@ async function sendEmail(email, password, empname) {
 
     const mailOptions = {
         from: {
-            name: "HR Esparse Matrix",
+            name: "HR bro Matrix",
             address: process.env.EMAIL,
         },
         to: email,
-        subject: `Congratulations ${empname}! You have been added to the Esparse Matrix family, Below are your email and password to login`,
+        subject: `Congratulations ${empname}! You have been added to the my family, Below are your email and password to login`,
         text: `Email: ${email} Password: ${password}`,
         html: `<b>Happy to have you😁😁</b> <br> ${email} ${password}`,
         // attachments: [{

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Job = require('./Job');
-const User = require('./User');
+const Employee = require('./Employee');
 
 const ApplicantSchema = new mongoose.Schema({
     name: {
@@ -14,7 +14,7 @@ const ApplicantSchema = new mongoose.Schema({
     },
     userID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Employee',
         required: true
     },
     email:{
@@ -36,15 +36,6 @@ const ApplicantSchema = new mongoose.Schema({
         required: true
     }
 })
-// const ApplicantSchema = new mongoose.Schema({
-//     name: {
-//         type: String,
-//         required: true
-//     },
-//     cv: {
-//         type: Buffer,
-//         required: true
-//     }
-// })
+
 
 module.exports = mongoose.model('Applicant', ApplicantSchema);

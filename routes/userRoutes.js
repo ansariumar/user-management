@@ -14,36 +14,68 @@ router.get('/', (req, res) => {
     res.json({message: "welcome"})
 })
 
-router.post('/register', async (req, res) => {
-    const { name, email, password, role }  = req.body;
 
-    let user = await User.findOne({ email });
-    if (user) {
-        return res.status(400).json({message: 'User already exists'})
-    }
-
-    console.log(req.body)
-    // if(!['Employee', 'HR', 'Admin'].includes(role)) {
-    //     return res.status(400).json({message: 'Invalid role'})
-    // }
-
-    try {
-        user = await User.create({name, email, password, role});
-        const jwtToken = generateToken(user._id);
-
-        res.status(201).json({id: user._id, token: jwtToken})
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({message: error.message})
-    }
-    
-})
-
-
-
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: User login
+ *     description: Authenticates a user and returns a JWT token if the credentials are valid.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@example.com
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 example: Password123
+ *     responses:
+ *       200:
+ *         description: User successfully authenticated
+ *         headers:
+ *           Set-Cookie:
+ *             description: HTTP-only cookie containing the JWT token
+ *             schema:
+ *               type: string
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   description: User ID
+ *                 role:
+ *                   type: string
+ *                   description: User role
+ *                 token:
+ *                   type: string
+ *                   description: JWT token
+ *       401:
+ *         description: Invalid credentials
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Invalid credential
+ *       500:
+ *         description: Internal server error
+ */
 
 router.post('/login', async (req, res) => {
-    // console.log(req.body)
+
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
@@ -63,20 +95,6 @@ console.log(user)
 });
 
 
-router.get('/users', protect, authorize("Admin"),  async (req, res) => {
-    const users = await User.find();
-    res.json(users);
-})
-
-router.get('/employee', protect, authorize('Employee', 'HR', 'Admin'), (req, res) => {
-    res.json({message: "Welcome Employee"})
-})
-
-
-router.get('/hr', protect, authorize('HR', 'Admin'), (req, res) => {
-    res.json({ message: 'Welcome HR' });
-});
-  
 
 
 

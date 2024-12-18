@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const User = require('./User');
+const Employee = require('../models/Employee');
 
 const LeaveSchema = new mongoose.Schema({
     userID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Employee',
         required: true
     },
     leaveType: {
@@ -31,7 +31,7 @@ const LeaveSchema = new mongoose.Schema({
     },
     approver: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Employee'
     },
     status: {
         type: String,

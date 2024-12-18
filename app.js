@@ -12,6 +12,8 @@ const timeSheetRoutes = require('./routes/timeSheetRoutes');
 const shiftRoutes = require('./routes/shiftRoutes');
 const payrollRoutes = require('./routes/payrollRoutes')
 const announcementRoutes = require('./routes/announcementRoutes');
+const feedbackRoutes = require('./routes/project/feedbackRoutes');
+const projectRoutes = require('./routes/project/projectRoutes')
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
@@ -61,6 +63,8 @@ app.use('/api/leave', leaveRoutes);
 app.use('/api/timeSheet', timeSheetRoutes );
 app.use('/api/shift', shiftRoutes);
 app.use('/api/announcement', announcementRoutes);
+app.use('/api/project/feedback', feedbackRoutes);
+app.use('/api/project', projectRoutes);
 app.use('./api/payroll', payrollRoutes)
 
 // MongoDB Connection

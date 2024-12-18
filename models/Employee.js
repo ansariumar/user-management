@@ -39,6 +39,13 @@ const employeeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Payroll"
   }],
+  leaveBalance: {
+    casual: { type: Number, default: 0 },
+    sick: { type: Number, default: 0 },
+    pending: { type: Number, default: 0 },
+    rejected: { type: Number, default: 0 },
+    approved: { type: Number, default: 0 }
+},
   salary: {
     type: Number,
     required: true

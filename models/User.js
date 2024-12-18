@@ -19,13 +19,6 @@ const UserSchema = new mongoose.Schema({
     },
     name: { type: String },
     department: { type: String },
-    leaveBalance: {
-        casual: { type: Number, default: 0 },
-        sick: { type: Number, default: 0 },
-        pending: { type: Number, default: 0 },
-        rejected: { type: Number, default: 0 },
-        approved: { type: Number, default: 0 }
-    },
 
 }, { timestamps: true })
 

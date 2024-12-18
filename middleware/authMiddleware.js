@@ -11,8 +11,8 @@ const protect = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = await User.findById(decoded.id).select('-password');   //get the user data but removes the password, req.user will make the user data availavble in the next middleware for the next middleware
     
+    req.user = await User.findById(decoded.id).select('-password');   //get the user data but removes the password, req.user will make the user data availavble in the next middleware for the next middleware
     try {
       req.emp = await Employee.findOne({ userID: decoded.id });    
     } catch (error) {
@@ -35,6 +35,7 @@ const protect = async (req, res, next) => {
 //   };
 // };
 const authorize = (...roles) => {             //if employee is trying to access the role of admin, the roles = ['Admin'], req.user.role = 'Employee'
+
   return (req, res, next) => {
     // console.debug(roles)
     // console.debug(req.user.role)

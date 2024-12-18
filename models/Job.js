@@ -7,8 +7,9 @@ const JobSchema = new mongoose.Schema({
     },
     jobType: {
         type: String,
-        enum: ['Full-time', 'Part-time', 'Contract', 'Internship'],
+        enum: ['full-time', 'part-time', 'contract', 'internship'],
         required: true,
+        lowercase: true
     },
     jobCategory: {                          //IT, HR, Marketing, frontend, backend, fullstack, etc
         type: String,
