@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const swaggerJsDoc = require('swagger-jsdoc')
+const path = require('path');
 
 const userRoutes = require('./routes/userRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
@@ -44,9 +45,13 @@ const options = {
 			},
 		],
 	},
-	apis: ["./routes/*.js"],
+	apis: [
+		"./routes/project/*.js",
+		"./routes/*.js",
+		
+	],
 };
-
+// E:\Umar\ESparse Matrix Solution\project\user-management-api\routes\project\projectRoutes.js
 const specs = swaggerJsDoc(options);
 
 dotenv.config();

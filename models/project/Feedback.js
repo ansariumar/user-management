@@ -1,9 +1,15 @@
 const mongoose = require('mongoose');
+const Project = require('./Project')
 
 const FeedbackSchema = new mongoose.Schema({
     projectName: {
         type: String,
         required: true
+    },
+    projectID: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Project'
     },
     managerRating: {
         type: Number,
